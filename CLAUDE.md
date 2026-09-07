@@ -68,6 +68,10 @@ direkt im Supabase-Editor gehen bei der nächsten Migration verloren.
 
 ## Gestaltung – nicht neu erfinden
 
+**Die verbindlichen Werte stehen in `docs/gestaltung.md`.** Dort liegen Farben,
+Schrift, Logo, Bildwelt und der Aufbau der Startseite, jeweils mit Quelle. Vor
+jeder Gestaltungsänderung dort nachsehen, nicht aus dem Kopf arbeiten.
+
 Farben, Typografie und Aufbau stammen aus dem Entwurf in Teil 3 der
 Website-Analyse. Die Vorlage liegt im Contaxx-Portal unter
 `portal-assets/praesentationen-live/orlowski/index.html`; ihr CSS enthält die

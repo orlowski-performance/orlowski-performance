@@ -42,16 +42,19 @@ export default function HomePage() {
 function Hero() {
   return (
     <section className="relative isolate overflow-hidden border-b border-line">
-      {/* Kopfbild über die volle Breite. Rheinturm und Rheinkniebrücke im
-          Morgenlicht - die Ortsangabe ist damit erledigt, bevor der erste Satz
-          gelesen ist. */}
+      {/* Kopfbild über die volle Breite, 2000 px breit - die alte Vorlage war
+          900 px und wurde über die volle Breite unscharf.
+
+          KI-erzeugt nach den Vorgaben in docs/gestaltung.md (Art. 50 EU-KI-VO).
+          Rheinturm und Rheinkniebrücke stehen rechts: Die Ortsangabe ist damit
+          erledigt, bevor der erste Satz gelesen ist. */}
       <Image
         src="/bilder/kopfbild.webp"
-        alt="Läuferin auf der Rheinuferpromenade in Düsseldorf, im Hintergrund Rheinturm und Rheinkniebrücke im Morgenlicht"
+        alt="Läuferin auf der Rheinuferpromenade in Düsseldorf, rechts Rheinturm und Rheinkniebrücke im Morgendunst"
         fill
         priority
         sizes="100vw"
-        className="-z-20 object-cover object-right"
+        className="-z-20 object-cover object-center"
       />
 
       {/* Der Verlauf deckt nur die linke Spalte ab und ist bei 55 Prozent zu
@@ -59,10 +62,10 @@ function Hero() {
           lässt die Skyline im Dunst verschwinden. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-papier from-30% via-papier/80 via-60% to-papier/25 sm:bg-gradient-to-r sm:from-papier sm:from-35% sm:via-papier/75 sm:via-52% sm:to-transparent sm:to-64%"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-papier from-25% via-papier/75 via-55% to-papier/20 sm:bg-gradient-to-r sm:from-papier sm:from-22% sm:via-papier/70 sm:via-42% sm:to-transparent sm:to-56%"
       />
 
-      <div className="mx-auto max-w-6xl px-6 py-24 sm:py-32 lg:py-40">
+      <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:py-24">
         <div className="max-w-[34rem]">
           <p className="augenbraue">
             Personal Training &amp; Ernährung · {site.city}
