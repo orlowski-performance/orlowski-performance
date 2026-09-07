@@ -27,11 +27,14 @@ niemals in eine Variable mit `NEXT_PUBLIC_`-Präfix und niemals ins Repository.
 
 ## Datenbank
 
+Projekt: **`orlowski-performance`**, Ref `xfrcubunbachooolccbi`, Region
+`eu-west-1` (Irland).
+
 Migrationen liegen in `supabase/migrations/` und werden über die Supabase CLI
 eingespielt:
 
 ```bash
-supabase link --project-ref <project-ref>
+supabase link --project-ref xfrcubunbachooolccbi
 supabase db push
 ```
 
@@ -53,3 +56,4 @@ gesetzt sein wie in `.env.example` – für Preview und Production getrennt.
 - [ ] Porträt und Bildmaterial in Web-Formaten bereitstellen (kein HEIC)
 - [ ] Benachrichtigung bei neuer Anfrage einrichten (E-Mail oder Supabase-Trigger)
 - [ ] Domain `orlowski-performance.com` auf Vercel zeigen lassen
+- [ ] `NEXT_PUBLIC_SITE_URL` auf die echte Domain umstellen
