@@ -2,28 +2,66 @@ import Link from "next/link";
 
 export function Section({
   children,
-  soft = false,
+  ton = "papier",
   labelledBy,
 }: {
   children: React.ReactNode;
-  soft?: boolean;
+  ton?: "papier" | "sanft" | "karte";
   labelledBy?: string;
 }) {
+  const hintergrund = { papier: "bg-papier", sanft: "bg-sanft", karte: "bg-karte" }[ton];
   return (
-    <section
-      aria-labelledby={labelledBy}
-      className={`border-b border-line ${soft ? "bg-paper-soft" : ""}`}
-    >
+    <section aria-labelledby={labelledBy} className={hintergrund}>
       <div className="mx-auto max-w-6xl px-6 py-section">{children}</div>
     </section>
   );
 }
 
-export function Cta({ children = "Unverbindlich bewerben" }: { children?: React.ReactNode }) {
+/** Augenbraue und Überschrift, wie im Entwurf immer als Paar. */
+export function Titel({
+  augenbraue,
+  id,
+  children,
+  lead,
+}: {
+  augenbraue: string;
+  id: string;
+  children: React.ReactNode;
+  lead?: React.ReactNode;
+}) {
+  return (
+    <header className="max-w-2xl">
+      <p className="augenbraue">{augenbraue}</p>
+      <h2 id={id} className="mt-3 text-3xl sm:text-4xl">
+        {children}
+      </h2>
+      {lead && <p className="mt-4 text-muted">{lead}</p>}
+    </header>
+  );
+}
+
+export function Cta({
+  children = "Unverbindlich bewerben",
+  href = "/bewerbung",
+}: {
+  children?: React.ReactNode;
+  href?: string;
+}) {
   return (
     <Link
-      href="/bewerbung"
-      className="inline-block rounded-full bg-brand px-7 py-3 font-semibold text-paper transition-colors hover:bg-brand-dark"
+      href={href}
+      className="inline-block rounded-full bg-salbei px-6 py-3 text-sm font-semibold text-papier transition-colors hover:bg-ink"
+    >
+      {children}
+    </Link>
+  );
+}
+
+export function CtaLeise({ children, href }: { children: React.ReactNode; href: string }) {
+  return (
+    <Link
+      href={href}
+      className="inline-block rounded-full border border-line bg-karte px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-salbei"
     >
       {children}
     </Link>
@@ -31,17 +69,25 @@ export function Cta({ children = "Unverbindlich bewerben" }: { children?: React.
 }
 
 /**
- * Sichtbare Kennzeichnung für Inhalte, die noch fehlen.
+ * Sichtbare Kennzeichnung für Inhalte, die noch fehlen oder erfunden sind.
  *
- * Absichtlich auffällig: Die Analyse hat einen unbemerkt stehengebliebenen
- * Platzhalter im FAQ als kritischen Befund geführt - direkt über zwei
- * Bezahlknöpfen. Ein Platzhalter, den man übersieht, ist genau das Problem.
+ * Auffällig mit Absicht: Der vierte kritische Befund der Analyse war ein
+ * übersehener Platzhalter über zwei Bezahlknöpfen. Ein Platzhalter, den man
+ * übersieht, ist genau das Problem.
  */
+export function PlatzhalterMarke() {
+  return (
+    <span className="rounded bg-[#FBF1DF] px-2 py-0.5 text-[0.6rem] font-semibold tracking-[0.12em] text-[#8A6A24]">
+      PLATZHALTER
+    </span>
+  );
+}
+
 export function Platzhalter({ children }: { children: React.ReactNode }) {
   return (
-    <p className="rounded-lg border border-dashed border-brand bg-brand-soft p-4 text-sm text-muted">
-      <strong className="font-semibold text-ink">Platzhalter · </strong>
-      {children}
+    <p className="rounded-xl border border-dashed border-salbei-line bg-salbei-wash p-4 text-sm text-muted">
+      <PlatzhalterMarke />{" "}
+      <span className="align-middle">{children}</span>
     </p>
   );
 }

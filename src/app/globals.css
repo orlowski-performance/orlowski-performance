@@ -1,24 +1,39 @@
 @import "tailwindcss";
 
 /*
- * Farbwelt: das Salbeigrün der bestehenden Seite. Die Analyse hat ausdrücklich
- * kein neues Design empfohlen, sondern dieselbe Farbwelt in besserer Ordnung.
+ * Farbwelt und Typografie stammen aus dem Entwurf der Präsentation, nicht aus
+ * eigener Erfindung: Salbeigrün als Hausfarbe, warmes Papier statt Reinweiß,
+ * Georgia für Überschriften.
+ *
+ * Die Serifenschrift ist keine Zierde - sie trägt die redaktionelle Haltung,
+ * die den Text der Seite von den üblichen Coaching-Anbietern unterscheidet.
+ * Georgia ist auf allen Systemen vorhanden, es wird also keine Schriftdatei
+ * geladen. Das zählt bei einer Seite, deren Vorgängerin an 35 MB Ladegewicht
+ * scheiterte.
  */
 @theme {
-  --color-brand: #6f8a72;
-  --color-brand-dark: #556d59;
-  --color-brand-soft: #e8ede7;
+  --color-salbei: #57624b;
+  --color-salbei-hell: #7a8a66;
+  --color-salbei-licht: #a8b79a;
+  --color-salbei-wash: #e7ebe1;
+  --color-salbei-line: #dde3d3;
 
-  --color-ink: #1c211d;
-  --color-muted: #5d655e;
-  --color-paper: #ffffff;
-  --color-paper-soft: #f7f6f1;
-  --color-line: #e2e2da;
+  --color-papier: #faf8f4;
+  --color-karte: #ffffff;
+  --color-sanft: #f1eee7;
+  --color-ink: #1e1e1c;
+  --color-muted: #55534c;
+  --color-leise: #8a8778;
+  --color-line: #e4e0d6;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --font-serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Consolas, monospace;
 
-  --spacing-section: 5rem;
+  --shadow-karte: 0 1px 2px rgba(30, 30, 28, 0.05), 0 10px 30px rgba(30, 30, 28, 0.07);
+
+  --spacing-section: 5.5rem;
 }
 
 html {
@@ -26,14 +41,31 @@ html {
 }
 
 body {
-  background-color: var(--color-paper);
+  background-color: var(--color-papier);
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Augenbraue über den Überschriften: klein, gesperrt, ruhig. */
+.augenbraue {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-leise);
+}
+
 :focus-visible {
-  outline: 2px solid var(--color-brand-dark);
+  outline: 2px solid var(--color-salbei);
   outline-offset: 3px;
 }
 

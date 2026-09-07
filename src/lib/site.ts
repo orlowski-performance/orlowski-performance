@@ -18,8 +18,12 @@ export const site = {
   description:
     "Personal Training und Ernährungsberatung in Düsseldorf – 1:1-Coaching für berufstätige Frauen, das sich in eine volle Woche einfügt.",
   contact: {
-    email: "TODO@orlowski-performance.com",
-    phone: "TODO",
+    email: "kontakt@orlowski-performance.com", // TODO(Sebastian): bestätigen
+    phone: "0152 33509383",
+    instagram: "sebastian_orl",
+    // Von der bisherigen Seite übernommen.
+    whatsapp:
+      "https://wa.me/4915233509383?text=Hallo%20Sebastian%2C%20ich%20interessiere%20mich%20f%C3%BCr%20dein%20Coaching.",
   },
   address: {
     street: "TODO",
@@ -27,16 +31,89 @@ export const site = {
     city: "Düsseldorf",
     country: "DE",
   },
+  /**
+   * Aussagen aus dem Entwurf, die überprüfbar sein müssen, bevor die Seite live
+   * geht. Eine Zahl freier Plätze, die nicht stimmt, ist eine Falschangabe.
+   */
+  versprechen: {
+    antwortzeit: "Antwort innerhalb von 24 Stunden", // TODO(Sebastian): einhaltbar?
+    freiePlaetze: 3, // TODO(Sebastian): aktuellen Stand eintragen oder Zeile entfernen
+  },
+  /** Qualifikationen. TODO(Sebastian): Lizenznamen, Verband und Jahr bestätigen. */
+  qualifikationen: [
+    "Fitnesstrainer B-Lizenz",
+    "Ernährungsberater",
+    "seit 2019 in der Betreuung",
+    "Düsseldorf",
+  ],
+
   /** Einzugsgebiet. Eigene Seiten dafür lohnen laut Analyse nicht - ein Absatz genügt. */
   serviceArea: ["Düsseldorf", "Neuss", "Meerbusch", "Ratingen"],
 } as const;
 
 /** Die vier Punkte der Vertrauensleiste unter dem Kopfbereich. */
 export const trustPoints = [
-  { label: "1:1, nicht Gruppe", detail: "Jeder Plan entsteht für eine Person." },
-  { label: "Training & Ernährung", detail: "Beides zusammen, nicht getrennt." },
-  { label: "Für volle Wochen", detail: "Vier Einheiten sind kein Maßstab." },
-  { label: "Düsseldorf & Umgebung", detail: "Vor Ort oder betreut online." },
+  { label: "1:1", detail: "Persönlich betreut – keine Plattform, kein Chatbot." },
+  { label: "wöchentlich", detail: "Check-in, Auswertung und Anpassung." },
+  { label: "Düsseldorf", detail: "Ansässig in Düsseldorf, betreut wird online." },
+  { label: "lizenziert", detail: "Fitnesstrainer und Ernährungsberater." },
+] as const;
+
+/** Die vier Bereiche aus dem Entwurf, mit den Bildern der Präsentation. */
+export const bereiche = [
+  {
+    titel: "Training",
+    bild: "/bilder/training.webp",
+    text: "Individueller Plan für Studio, Zuhause oder beides. Regelmäßig angepasst an Zeit, Stand und Ziel.",
+  },
+  {
+    titel: "Ernährung",
+    bild: "/bilder/ernaehrung.webp",
+    text: "Kalorien, Makros und ein Leitfaden mit Rezepten – flexibel statt starrer Essenspläne.",
+  },
+  {
+    titel: "Betreuung",
+    bild: "/bilder/betreuung.webp",
+    text: "Wöchentliche Check-ins, Telefon- und Videogespräche, direkte Erreichbarkeit.",
+  },
+  {
+    titel: "Alltag & Routinen",
+    bild: "/bilder/alltag.webp",
+    text: "Schlaf, Stress, Morgen- und Abendroutinen. Der Teil, an dem die meisten scheitern.",
+  },
+] as const;
+
+/**
+ * Kundenstimmen aus dem Entwurf der Präsentation.
+ *
+ * ACHTUNG: Erfundene Beispiele. Sie stehen hier, weil der Entwurf zeigt, wie
+ * der Abschnitt aussehen soll - und sie werden auf der Seite sichtbar als
+ * Platzhalter gekennzeichnet. Vor dem Livegang durch echte Stimmen ersetzen
+ * oder den ganzen Abschnitt entfernen. Ungekennzeichnet stehen lassen ist
+ * keine Option.
+ */
+export const stimmenPlatzhalter = [
+  {
+    zitat: "Zum ersten Mal habe ich einen Plan, der zu meinen Schichten passt statt gegen sie zu arbeiten.",
+    initialen: "JK",
+    person: "Julia, 34 · Pflegedienstleitung",
+    ort: "Düsseldorf-Bilk",
+    ergebnis: "~9 kg in 22 Wochen, Kraft gehalten",
+  },
+  {
+    zitat: "Die wöchentlichen Check-ins sind der Grund, warum ich diesmal drangeblieben bin.",
+    initialen: "MS",
+    person: "Marie, 41 · Projektleiterin",
+    ort: "Meerbusch",
+    ergebnis: "3 Trainings pro Woche seit 8 Monaten",
+  },
+  {
+    zitat: "Kein Verbotskatalog. Ich esse weiter mit meiner Familie – und es funktioniert trotzdem.",
+    initialen: "TB",
+    person: "Thomas, 38 · Außendienst",
+    ort: "Neuss",
+    ergebnis: "~12 kg, Blutdruckwerte im Normbereich",
+  },
 ] as const;
 
 /**

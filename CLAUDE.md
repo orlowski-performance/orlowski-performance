@@ -66,6 +66,34 @@ liefert — nicht nur, dass die Policy existiert.
 Migrationen liegen in `supabase/migrations/` und sind die Wahrheit. Änderungen
 direkt im Supabase-Editor gehen bei der nächsten Migration verloren.
 
+## Gestaltung – nicht neu erfinden
+
+Farben, Typografie und Aufbau stammen aus dem Entwurf in Teil 3 der
+Website-Analyse. Die Vorlage liegt im Contaxx-Portal unter
+`portal-assets/praesentationen-live/orlowski/index.html`; ihr CSS enthält die
+verbindlichen Werte.
+
+| | Wert |
+| --- | --- |
+| Salbei | `#57624B` |
+| Papier | `#FAF8F4` |
+| Karte | `#FFFFFF` |
+| Sanft | `#F1EEE7` |
+| Linie | `#E4E0D6` |
+| Ink | `#1E1E1C` |
+| Überschriften | `Georgia, "Iowan Old Style", "Times New Roman", serif` |
+| Fließtext | System-Sans |
+
+Die Serifenschrift trägt die redaktionelle Haltung und ist keine Zierde. Es
+wird bewusst keine Schriftdatei geladen – die Vorgängerseite scheiterte an
+35 MB Ladegewicht.
+
+Die Bilder in `public/bilder/` stammen aus der Präsentation und sind
+KI-erzeugte Vorlagen für ein Fotoshooting (Art. 50 EU-KI-VO). Das Porträt zeigt
+**nicht** Sebastian Orlowski und ist auf der Seite als Platzhalter
+gekennzeichnet. Diese Kennzeichnung darf nicht entfernt werden, solange das
+Bild dort steht.
+
 ## Inhalte
 
 Alle Texte auf der Startseite sind mit `TODO(Sebastian)` markierte Platzhalter

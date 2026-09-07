@@ -1,26 +1,26 @@
+import Image from "next/image";
 import Link from "next/link";
-import { site, servicePages, trustPoints } from "@/lib/site";
+import { site, bereiche, trustPoints, stimmenPlatzhalter } from "@/lib/site";
 import { JsonLd, faqJsonLd } from "@/lib/seo";
-import { Section, Cta, Platzhalter } from "@/components/ui";
+import { Section, Titel, Cta, CtaLeise, PlatzhalterMarke } from "@/components/ui";
 
 /**
- * Startseite nach dem Entwurf aus der Analyse.
+ * Startseite nach dem Entwurf aus Teil 3 der Präsentation.
  *
- * Die drei Korrekturen gegenüber der alten Seite: Ort und Leistung stehen in
- * der Überschrift, die Zielgruppe steht oben statt in FAQ-Frage 2 von 17, und
- * es gibt einen Handlungsaufruf statt drei nebeneinander.
+ * Reihenfolge, Texte, Farben und Bilder stammen aus dieser Vorlage, nicht aus
+ * eigener Erfindung. Wo der Entwurf Platzhalter zeigt, bleiben sie Platzhalter.
  */
 
 const faq = [
   {
     question: "Für wen ist das Coaching gedacht?",
     answer:
-      "Für berufstätige Frauen, die neben Beruf und Familie leistungsfähiger werden wollen – ohne dass Training den Kalender bestimmt.",
+      "Für Menschen mit voller Woche, die ihren Körper verändern wollen – besonders berufstätige Frauen, die Beruf, Familie und Training zusammenbringen müssen.",
   },
   {
-    question: "Findet das Training in Düsseldorf statt oder online?",
+    question: "Findet das Coaching in Düsseldorf statt oder online?",
     answer:
-      "Beides ist möglich: vor Ort in Düsseldorf und Umgebung oder vollständig betreut online.",
+      "Die Betreuung läuft über Telefon, Video und App und ist damit ortsunabhängig. Für ein persönliches Kennenlernen bin ich in Düsseldorf vor Ort.",
   },
 ] as const;
 
@@ -28,13 +28,11 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <TrustBar />
+      <Vertrauensleiste />
+      <VierBereiche />
       <Ergebnisse />
-      <Leistungen />
-      <Ablauf />
-      <Person />
+      <UeberMich />
       <Einzugsgebiet />
-      <Faq />
       <Abschluss />
       <JsonLd data={faqJsonLd(faq)} />
     </>
@@ -43,47 +41,62 @@ export default function HomePage() {
 
 function Hero() {
   return (
-    <section className="border-b border-line">
-      <div className="mx-auto grid max-w-6xl gap-10 px-6 py-20 md:grid-cols-2 md:items-center">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-widest text-brand-dark">
-            {site.role} · {site.city}
+    <section className="relative isolate overflow-hidden border-b border-line">
+      {/* Kopfbild: Rheinturm im Morgenlicht. Die Ortsangabe ist damit erledigt,
+          bevor der erste Satz gelesen ist - so steht es in der Analyse. */}
+      <Image
+        src="/bilder/kopfbild.webp"
+        alt=""
+        aria-hidden="true"
+        fill
+        priority
+        sizes="100vw"
+        className="-z-20 object-cover object-right"
+      />
+
+      {/* Verlauf: links deckend, damit die Überschrift auf ruhiger Fläche steht,
+          nach rechts durchsichtig, damit die Skyline sichtbar bleibt. Auf
+          schmalen Geräten von unten nach oben statt von links. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-t from-papier via-papier/85 to-papier/30 sm:bg-gradient-to-r sm:from-papier sm:via-papier/90 sm:to-transparent"
+      />
+
+      <div className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+        <div className="max-w-xl">
+          <p className="augenbraue">
+            Personal Training &amp; Ernährung · {site.city}
           </p>
-          <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            Personal Training in Düsseldorf für {site.audience}
+          <h1 className="mt-4 text-4xl leading-[1.15] sm:text-5xl">
+            Persönliches 1:1-Coaching aus Düsseldorf – für Menschen, deren Woche
+            schon voll ist.
           </h1>
           <p className="mt-6 text-lg text-muted">
-            {/* TODO(Sebastian): Zwei Sätze in deinen Worten - was verändert sich,
-                und woran merkt man es? */}
-            Training und Ernährung aus einer Hand, zugeschnitten auf eine volle
-            Woche. Kein Plan, der nur funktioniert, wenn sonst nichts dazwischen
-            kommt.
+            Training, Ernährung und Routinen, die sich deinem Alltag anpassen
+            statt umgekehrt. Online betreut, mit wöchentlichen Check-ins und
+            meiner persönlichen Telefonnummer.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap gap-3">
             <Cta />
+            <CtaLeise href="/kontakt">Kennenlerngespräch anfragen</CtaLeise>
           </div>
-        </div>
-
-        {/* Bildfläche. Laut Analyse gehört hier die Zielgruppe ins Bild,
-            die linke Hälfte bleibt für die Überschrift frei. */}
-        <div className="flex min-h-64 items-center justify-center rounded-xl border border-dashed border-brand bg-brand-soft p-6 text-center text-sm text-muted">
-          Kopfbild – wartet auf das Fotoshooting.
-          <br />
-          Vorgabe aus der Analyse: Tageslicht von der Seite, heller Hintergrund,
-          alltagsnah.
+          <p className="mt-5 text-sm text-leise">
+            Kostenlos und unverbindlich · {site.versprechen.antwortzeit} ·
+            aktuell {site.versprechen.freiePlaetze} freie Plätze
+          </p>
         </div>
       </div>
     </section>
   );
 }
 
-function TrustBar() {
+function Vertrauensleiste() {
   return (
-    <section className="border-b border-line bg-paper-soft">
-      <ul className="mx-auto grid max-w-6xl gap-6 px-6 py-8 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="border-b border-line bg-karte">
+      <ul className="mx-auto grid max-w-6xl grid-cols-1 divide-y divide-line px-6 sm:grid-cols-2 sm:divide-x sm:divide-y-0 lg:grid-cols-4">
         {trustPoints.map((p) => (
-          <li key={p.label}>
-            <p className="font-semibold">{p.label}</p>
+          <li key={p.label} className="px-0 py-6 sm:px-6">
+            <p className="font-serif text-xl">{p.label}</p>
             <p className="mt-1 text-sm text-muted">{p.detail}</p>
           </li>
         ))}
@@ -92,99 +105,126 @@ function TrustBar() {
   );
 }
 
-function Ergebnisse() {
+function VierBereiche() {
   return (
-    <Section labelledBy="ergebnisse">
-      <h2 id="ergebnisse" className="text-2xl font-semibold tracking-tight">
-        Ergebnisse
-      </h2>
-      <p className="mt-3 max-w-2xl text-muted">
-        Ausgangslage, Zeitraum, Ergebnis – nachvollziehbar statt behauptet.
-      </p>
-      <div className="mt-6 max-w-2xl">
-        <Platzhalter>
-          Hier stehen echte Fallbeispiele und Kundenstimmen, sobald sie
-          vorliegen. Bis dahin bleibt der Abschnitt leer: Ein erfundener Beweis
-          wäre schlimmer als gar keiner.
-        </Platzhalter>
-      </div>
-      <p className="mt-6">
-        <Link href="/ergebnisse" className="font-semibold text-brand-dark underline">
-          Alle Ergebnisse ansehen
-        </Link>
-      </p>
-    </Section>
-  );
-}
+    <Section ton="sanft" labelledBy="bereiche">
+      <Titel
+        augenbraue="Was im Coaching enthalten ist"
+        id="bereiche"
+        lead="Kein Standardplan und keine Crash-Diät, sondern eine Betreuung, die alle vier Hebel zusammen denkt – und die jede Woche nachjustiert wird."
+      >
+        Vier Bereiche, ein System
+      </Titel>
 
-function Leistungen() {
-  return (
-    <Section soft labelledBy="leistungen">
-      <h2 id="leistungen" className="text-2xl font-semibold tracking-tight">
-        Leistungen
-      </h2>
-      <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {servicePages
-          .filter((p) => p.slug !== "ergebnisse")
-          .map((p) => (
-            <li key={p.slug} className="rounded-xl border border-line bg-paper p-6">
-              <h3 className="font-semibold">
-                <Link href={`/${p.slug}`} className="hover:text-brand-dark">
-                  {p.title}
-                </Link>
-              </h3>
-              <p className="mt-2 text-sm text-muted">{p.lead}</p>
-            </li>
-          ))}
+      <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {bereiche.map((b) => (
+          <li key={b.titel} className="overflow-hidden rounded-xl bg-karte shadow-karte">
+            <Image
+              src={b.bild}
+              alt=""
+              aria-hidden="true"
+              width={480}
+              height={300}
+              className="h-40 w-full object-cover"
+            />
+            <div className="p-5">
+              <h3 className="text-lg">{b.titel}</h3>
+              <p className="mt-2 text-sm text-muted">{b.text}</p>
+            </div>
+          </li>
+        ))}
       </ul>
     </Section>
   );
 }
 
-function Ablauf() {
-  const schritte = [
-    ["Erstgespräch", "Ausgangslage, Ziel und Rahmenbedingungen – unverbindlich."],
-    ["Bestandsaufnahme", "Messung statt Schätzung: Belastbarkeit, Alltag, Vorgeschichte."],
-    ["Betreuung", "Plan, laufende Anpassung und regelmäßige Kontrolle der Werte."],
-  ];
+function Ergebnisse() {
   return (
-    <Section labelledBy="ablauf">
-      <h2 id="ablauf" className="text-2xl font-semibold tracking-tight">
-        Ablauf
-      </h2>
-      <ol className="mt-8 grid gap-8 sm:grid-cols-3">
-        {schritte.map(([titel, text], i) => (
-          <li key={titel}>
-            <span className="text-sm font-semibold text-brand-dark">0{i + 1}</span>
-            <h3 className="mt-2 font-semibold">{titel}</h3>
-            <p className="mt-2 text-sm text-muted">{text}</p>
+    <Section labelledBy="ergebnisse">
+      <Titel
+        augenbraue="Ergebnisse"
+        id="ergebnisse"
+        lead="Der Abschnitt, der heute komplett fehlt – und der über den Abschluss entscheidet. Hier gehören echte Namen, echte Zahlen und echte Zeiträume hin."
+      >
+        Was Kundinnen und Kunden erreicht haben
+      </Titel>
+
+      <ul className="mt-10 grid gap-6 lg:grid-cols-3">
+        {stimmenPlatzhalter.map((s) => (
+          <li key={s.initialen} className="rounded-xl border border-line bg-karte p-6">
+            <div className="flex justify-end">
+              <PlatzhalterMarke />
+            </div>
+            <blockquote className="mt-2 text-muted">{"\u201e"}{s.zitat}{"\u201c"}</blockquote>
+            <div className="mt-5 flex items-center gap-3 border-t border-line pt-4">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-salbei-wash text-xs font-semibold text-salbei">
+                {s.initialen}
+              </span>
+              <span className="text-sm">
+                <span className="block">{s.person}</span>
+                <span className="block text-leise">{s.ort}</span>
+              </span>
+            </div>
+            <p className="mt-4 text-sm font-medium">{s.ergebnis}</p>
           </li>
         ))}
-      </ol>
+      </ul>
+
+      <p className="mt-6 max-w-2xl text-sm text-leise">
+        Diese drei Stimmen sind erfundene Beispiele aus dem Entwurf. Sie zeigen
+        den Aufbau des Abschnitts und werden vor dem Livegang durch echte
+        Rückmeldungen ersetzt.
+      </p>
     </Section>
   );
 }
 
-function Person() {
+function UeberMich() {
   return (
-    <Section soft labelledBy="person">
-      <div className="grid gap-8 md:grid-cols-2 md:items-center">
-        <div className="flex min-h-56 items-center justify-center rounded-xl border border-dashed border-brand bg-paper p-6 text-center text-sm text-muted">
-          Porträt – wartet auf das Fotoshooting.
-          <br />
-          Das bisherige Bild war eine HEIC-Datei und in den meisten Browsern
-          unsichtbar.
-        </div>
+    <Section ton="sanft" labelledBy="ueber-mich">
+      <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <figure className="relative">
+          <Image
+            src="/bilder/portraet-platzhalter.webp"
+            alt="Platzhalterbild einer Person in einem hellen Raum"
+            width={560}
+            height={750}
+            className="w-full rounded-xl object-cover"
+          />
+          <figcaption className="absolute left-4 top-4">
+            <PlatzhalterMarke />
+          </figcaption>
+          <figcaption className="mt-3 text-sm text-leise">
+            Vorlage für das Fotoshooting – die abgebildete Person ist nicht
+            Sebastian Orlowski.
+          </figcaption>
+        </figure>
+
         <div>
-          <h2 id="person" className="text-2xl font-semibold tracking-tight">
+          <p className="augenbraue">Über mich</p>
+          <h2 id="ueber-mich" className="mt-3 text-3xl sm:text-4xl">
             {site.owner}
           </h2>
-          <p className="mt-3 text-muted">
-            {/* TODO(Sebastian): Werdegang, Qualifikation, warum diese Zielgruppe.
-                Lizenzen mit Namen, Verband und Jahr - „lizenziert" allein zählt nicht. */}
-            Hier steht dein Werdegang: Ausbildung, Lizenzen mit Namen und
-            Verband, und warum du mit dieser Zielgruppe arbeitest.
+          <p className="mt-4 text-muted">
+            Lizenzierter Fitnesstrainer und Ernährungsberater aus Düsseldorf. Ich
+            begleite Menschen, die schon wissen, was sie verändern wollen – denen
+            aber ein System fehlt, das zu einer vollen Woche passt.
           </p>
+          <p className="mt-4 text-muted">
+            Kein Standardplan, keine Extreme, kein anonymer Chat. Jede Planung,
+            jede Auswertung und jede Rückmeldung kommt von mir persönlich.
+            Deshalb ist die Zahl der Plätze begrenzt.
+          </p>
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {site.qualifikationen.map((q) => (
+              <li
+                key={q}
+                className="rounded-full bg-salbei-wash px-3 py-1.5 text-xs font-medium text-salbei"
+              >
+                {q}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </Section>
@@ -194,38 +234,31 @@ function Person() {
 function Einzugsgebiet() {
   return (
     <Section labelledBy="einzugsgebiet">
-      <h2 id="einzugsgebiet" className="text-2xl font-semibold tracking-tight">
-        Einzugsgebiet
-      </h2>
-      <p className="mt-3 max-w-2xl text-muted">
-        Training vor Ort in {site.serviceArea.slice(0, -1).join(", ")} und{" "}
-        {site.serviceArea.at(-1)}. Wer weiter weg wohnt oder viel unterwegs ist,
-        wird online betreut – mit demselben Plan und denselben Kontrollpunkten.
-      </p>
-    </Section>
-  );
-}
-
-function Faq() {
-  return (
-    <Section soft labelledBy="faq">
-      <h2 id="faq" className="text-2xl font-semibold tracking-tight">
-        Häufige Fragen
-      </h2>
-      <dl className="mt-8 max-w-3xl space-y-6">
-        {faq.map((f) => (
-          <div key={f.question}>
-            <dt className="font-semibold">{f.question}</dt>
-            <dd className="mt-2 text-muted">{f.answer}</dd>
-          </div>
-        ))}
-      </dl>
-      <div className="mt-8 max-w-2xl">
-        <Platzhalter>
-          Die 17 Antworten der alten Seite werden hierher übernommen und
-          ausgezeichnet, sobald Kündigungsregel und Gesamtpreise ausformuliert
-          sind. Genau dort stand bisher ein Platzhalter über den Bezahlknöpfen.
-        </Platzhalter>
+      <div className="grid gap-10 md:grid-cols-2 md:items-center">
+        <Image
+          src="/bilder/einzugsgebiet.webp"
+          alt=""
+          aria-hidden="true"
+          width={900}
+          height={502}
+          className="w-full rounded-xl object-cover"
+        />
+        <div>
+          <p className="augenbraue">Einzugsgebiet</p>
+          <h2 id="einzugsgebiet" className="mt-3 text-3xl sm:text-4xl">
+            Zuhause in Düsseldorf, betreut wird online
+          </h2>
+          <p className="mt-4 text-muted">
+            Die Betreuung läuft über Telefon, Video und App – der Ort spielt für
+            die Zusammenarbeit keine Rolle. Für ein persönliches Kennenlernen bin
+            ich in Düsseldorf vor Ort.
+          </p>
+          <ul className="mt-6 space-y-2 text-sm text-muted">
+            <li>– Düsseldorf: Oberkassel, Pempelfort, Flingern, Bilk, Kaiserswerth</li>
+            <li>– Umland: Neuss, Meerbusch, Ratingen, Erkrath</li>
+            <li>– Bundesweit online, ortsunabhängig betreut</li>
+          </ul>
+        </div>
       </div>
     </Section>
   );
@@ -233,18 +266,24 @@ function Faq() {
 
 function Abschluss() {
   return (
-    <section>
-      <div className="mx-auto max-w-6xl px-6 py-section">
-        <h2 className="text-2xl font-semibold tracking-tight">Passt das zu dir?</h2>
-        <p className="mt-3 max-w-2xl text-muted">
-          Schreib kurz, wo du stehst und was du erreichen willst. Du bekommst
-          eine ehrliche Einschätzung – auch dann, wenn ich nicht der Richtige
-          bin.
+    <Section ton="sanft">
+      <div className="mx-auto max-w-2xl text-center">
+        <h2 className="text-3xl sm:text-4xl">Bereit, deinen Weg zu starten?</h2>
+        <p className="mt-4 text-muted">
+          Eine kurze Bewerbung, dann melde ich mich persönlich. Wir klären in
+          einem Gespräch, ob das Coaching zu deinen Zielen passt – ohne
+          Verpflichtung.
         </p>
-        <div className="mt-8">
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Cta />
+          <Link
+            href={site.contact.whatsapp}
+            className="inline-block rounded-full border border-line bg-karte px-6 py-3 text-sm font-semibold text-ink transition-colors hover:border-salbei"
+          >
+            Direkt über WhatsApp schreiben
+          </Link>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
