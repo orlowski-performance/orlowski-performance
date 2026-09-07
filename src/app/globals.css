@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0f1115;
+  --color-ink-soft: #1a1d24;
+  --color-paper: #ffffff;
+  --color-paper-soft: #f4f5f7;
+  --color-line: #e3e5ea;
+  --color-muted: #5c6270;
+  --color-accent: #d64518;
+  --color-accent-dark: #b23611;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --spacing-section: 6rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fokus bleibt sichtbar - Tastaturbedienung ist keine Option, sondern Pflicht. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

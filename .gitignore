@@ -1,0 +1,25 @@
+node_modules/
+.next/
+out/
+build/
+.DS_Store
+*.pem
+
+# Umgebungsvariablen - niemals committen
+.env
+.env.local
+.env.*.local
+
+# Vercel / Supabase
+.vercel
+supabase/.temp/
+supabase/.branches/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
