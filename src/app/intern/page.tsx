@@ -11,13 +11,24 @@ export const metadata: Metadata = {
 /** Immer frisch laden - Anfragen von gestern sind hier wertlos. */
 export const dynamic = "force-dynamic";
 
+const PAKET: Record<string, string> = {
+  "3-monate": "3 Monate",
+  "6-monate": "6 Monate",
+  unentschieden: "unentschieden",
+};
+const START: Record<string, string> = {
+  sofort: "so bald wie möglich",
+  "innerhalb-1-monat": "innerhalb eines Monats",
+  spaeter: "später",
+};
+
 /**
- * Interner Bereich: eingegangene Kontaktanfragen.
+ * Interner Bereich: Bewerbungen und Kontaktanfragen.
  *
  * Die Middleware haelt Nicht-Angemeldete fern. Was hier tatsaechlich sichtbar
- * ist, entscheidet aber die Datenbank: Ohne die Rolle staff liefert die Abfrage
- * eine leere Liste, auch wenn jemand die Seite erreicht. Die Zugriffskontrolle
- * liegt damit nicht in der Oberflaeche, sondern in der Policy.
+ * ist, entscheidet aber die Datenbank: Ohne die Rolle staff liefern beide
+ * Abfragen eine leere Liste. Die Zugriffskontrolle liegt in der Policy, nicht
+ * in dieser Datei.
  */
 export default async function InternPage() {
   const supabase = await createClient();
@@ -33,19 +44,26 @@ export default async function InternPage() {
     .eq("id", user.id)
     .maybeSingle();
 
-  const { data: leads, error } = await supabase
-    .from("leads")
-    .select("id, created_at, name, email, message, handled_at")
-    .order("created_at", { ascending: false })
-    .limit(100);
-
   const istStaff = profile?.role === "staff";
+
+  const [{ data: applications }, { data: leads }] = await Promise.all([
+    supabase
+      .from("applications")
+      .select("id, created_at, name, email, phone, goal, situation, constraints, availability, package, start_window, message, handled_at")
+      .order("created_at", { ascending: false })
+      .limit(100),
+    supabase
+      .from("leads")
+      .select("id, created_at, name, email, message, handled_at")
+      .order("created_at", { ascending: false })
+      .limit(100),
+  ]);
 
   return (
     <section className="mx-auto max-w-6xl px-6 py-section">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Kontaktanfragen</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">Interner Bereich</h1>
           <p className="mt-2 text-sm text-muted">
             Angemeldet als {profile?.full_name ?? user.email} · Rolle{" "}
             {profile?.role ?? "unbekannt"}
@@ -64,48 +82,92 @@ export default async function InternPage() {
       {!istStaff && (
         <p className="mt-8 rounded-lg border border-line bg-paper-soft p-4 text-sm">
           Dieses Konto hat nicht die Rolle <code>staff</code> und sieht deshalb
-          keine Anfragen. Die Rolle wird in der Tabelle <code>profiles</code>
-          gesetzt.
+          keine Vorgänge. Die Rolle wird in der Tabelle <code>profiles</code> gesetzt.
         </p>
       )}
 
-      {error && (
-        <p role="alert" className="mt-8 text-sm text-ink">
-          Die Anfragen konnten nicht geladen werden: {error.message}
-        </p>
+      <h2 className="mt-12 text-2xl font-semibold tracking-tight">
+        Bewerbungen{" "}
+        <span className="text-base font-normal text-muted">
+          ({applications?.length ?? 0})
+        </span>
+      </h2>
+      {istStaff && applications?.length === 0 && (
+        <p className="mt-4 text-muted">Noch keine Bewerbungen eingegangen.</p>
       )}
+      <ul className="mt-6 space-y-4">
+        {applications?.map((a) => (
+          <li key={a.id} className="rounded-xl border border-line p-5">
+            <Kopf name={a.name} email={a.email} datum={a.created_at} erledigt={a.handled_at} />
+            <dl className="mt-4 space-y-3 text-sm">
+              <Feld label="Ziel">{a.goal}</Feld>
+              <Feld label="Heute">{a.situation}</Feld>
+              <Feld label="Einschränkungen">{a.constraints}</Feld>
+              <Feld label="Zeit pro Woche">{a.availability}</Feld>
+              <Feld label="Paket">{a.package ? PAKET[a.package] : null}</Feld>
+              <Feld label="Start">{a.start_window ? START[a.start_window] : null}</Feld>
+              <Feld label="Telefon">{a.phone}</Feld>
+              <Feld label="Anmerkung">{a.message}</Feld>
+            </dl>
+          </li>
+        ))}
+      </ul>
 
+      <h2 className="mt-16 text-2xl font-semibold tracking-tight">
+        Kontaktanfragen{" "}
+        <span className="text-base font-normal text-muted">({leads?.length ?? 0})</span>
+      </h2>
       {istStaff && leads?.length === 0 && (
-        <p className="mt-8 text-muted">Noch keine Anfragen eingegangen.</p>
+        <p className="mt-4 text-muted">Noch keine Anfragen eingegangen.</p>
       )}
-
-      {leads && leads.length > 0 && (
-        <ul className="mt-8 space-y-4">
-          {leads.map((lead) => (
-            <li key={lead.id} className="rounded-xl border border-line p-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-3">
-                <p className="font-semibold">{lead.name}</p>
-                <time
-                  dateTime={lead.created_at}
-                  className="text-sm text-muted"
-                >
-                  {new Date(lead.created_at).toLocaleString("de-DE", {
-                    dateStyle: "medium",
-                    timeStyle: "short",
-                  })}
-                </time>
-              </div>
-              <p className="mt-1 text-sm text-muted">
-                <a href={`mailto:${lead.email}`} className="underline">
-                  {lead.email}
-                </a>
-                {lead.handled_at && " · erledigt"}
-              </p>
-              <p className="mt-3 whitespace-pre-line">{lead.message}</p>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="mt-6 space-y-4">
+        {leads?.map((l) => (
+          <li key={l.id} className="rounded-xl border border-line p-5">
+            <Kopf name={l.name} email={l.email} datum={l.created_at} erledigt={l.handled_at} />
+            <p className="mt-3 whitespace-pre-line">{l.message}</p>
+          </li>
+        ))}
+      </ul>
     </section>
+  );
+}
+
+function Kopf({
+  name,
+  email,
+  datum,
+  erledigt,
+}: {
+  name: string;
+  email: string;
+  datum: string;
+  erledigt: string | null;
+}) {
+  return (
+    <>
+      <div className="flex flex-wrap items-baseline justify-between gap-3">
+        <p className="font-semibold">{name}</p>
+        <time dateTime={datum} className="text-sm text-muted">
+          {new Date(datum).toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short" })}
+        </time>
+      </div>
+      <p className="mt-1 text-sm text-muted">
+        <a href={`mailto:${email}`} className="underline">
+          {email}
+        </a>
+        {erledigt && " · erledigt"}
+      </p>
+    </>
+  );
+}
+
+/** Leere Felder werden weggelassen statt als „—" angezeigt. */
+function Feld({ label, children }: { label: string; children: React.ReactNode }) {
+  if (!children) return null;
+  return (
+    <div className="grid gap-1 sm:grid-cols-[10rem_1fr]">
+      <dt className="font-medium text-muted">{label}</dt>
+      <dd className="whitespace-pre-line">{children}</dd>
+    </div>
   );
 }

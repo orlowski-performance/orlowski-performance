@@ -86,6 +86,8 @@ neu zu messen.
 
 ## Arbeitsweise
 
-- Entwicklung auf `claude/...`-Branches, `main` ist der Default-Branch für Vercel.
+- **Es wird immer direkt nach `main` gepusht.** So hat der Betreiber es festgelegt;
+  Vercel deployt daraus die Produktion. Keine Feature-Branches, keine Pull Requests,
+  solange niemand anderes mitarbeitet.
 - Vor jedem Push: `npm run build` muss durchlaufen. Der Build prüft Typen und Lint mit.
 - Stammdaten stehen zentral in `src/lib/site.ts`, nicht verstreut in den Seiten.

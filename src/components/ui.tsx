@@ -19,10 +19,10 @@ export function Section({
   );
 }
 
-export function Cta({ children = "Kostenloses Erstgespräch anfragen" }: { children?: React.ReactNode }) {
+export function Cta({ children = "Unverbindlich bewerben" }: { children?: React.ReactNode }) {
   return (
     <Link
-      href="/kontakt"
+      href="/bewerbung"
       className="inline-block rounded-full bg-brand px-7 py-3 font-semibold text-paper transition-colors hover:bg-brand-dark"
     >
       {children}

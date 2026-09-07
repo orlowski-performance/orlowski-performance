@@ -83,10 +83,10 @@ function SiteHeader() {
           </ul>
 
           <Link
-            href="/kontakt"
+            href="/bewerbung"
             className="rounded-full bg-brand px-4 py-2 text-sm font-semibold text-paper transition-colors hover:bg-brand-dark"
           >
-            Erstgespräch
+            Bewerben
           </Link>
         </nav>
       </div>
@@ -123,6 +123,11 @@ function SiteFooter() {
         <div>
           <p className="text-sm font-semibold">Rechtliches</p>
           <ul className="mt-2 space-y-1 text-sm text-muted">
+            <li>
+              <Link href="/kontakt" className="hover:text-ink">
+                Kontakt
+              </Link>
+            </li>
             <li>
               <Link href="/impressum" className="hover:text-ink">
                 Impressum
