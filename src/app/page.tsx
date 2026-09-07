@@ -41,9 +41,29 @@ export default function HomePage() {
 
 function Hero() {
   return (
-    <section className="border-b border-line">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 sm:py-24 lg:grid-cols-[1fr_0.95fr]">
-        <div>
+    <section className="relative isolate overflow-hidden border-b border-line">
+      {/* Kopfbild über die volle Breite. Rheinturm und Rheinkniebrücke im
+          Morgenlicht - die Ortsangabe ist damit erledigt, bevor der erste Satz
+          gelesen ist. */}
+      <Image
+        src="/bilder/kopfbild.webp"
+        alt="Läuferin auf der Rheinuferpromenade in Düsseldorf, im Hintergrund Rheinturm und Rheinkniebrücke im Morgenlicht"
+        fill
+        priority
+        sizes="100vw"
+        className="-z-20 object-cover object-right"
+      />
+
+      {/* Der Verlauf deckt nur die linke Spalte ab und ist bei 55 Prozent zu
+          Ende. Ein Verlauf über die ganze Breite nimmt dem Bild die Farbe und
+          lässt die Skyline im Dunst verschwinden. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-papier from-30% via-papier/80 via-60% to-papier/25 sm:bg-gradient-to-r sm:from-papier sm:from-35% sm:via-papier/75 sm:via-52% sm:to-transparent sm:to-64%"
+      />
+
+      <div className="mx-auto max-w-6xl px-6 py-24 sm:py-32 lg:py-40">
+        <div className="max-w-[34rem]">
           <p className="augenbraue">
             Personal Training &amp; Ernährung · {site.city}
           </p>
@@ -65,20 +85,6 @@ function Hero() {
             aktuell {site.versprechen.freiePlaetze} freie Plätze
           </p>
         </div>
-
-        {/* Kopfbild: Rheinturm im Morgenlicht. Damit ist die Ortsangabe
-            erledigt, bevor der erste Satz gelesen ist - so steht es in der
-            Analyse. Eigene Fläche statt Hintergrund: über einem Verlauf
-            verliert das Bild seine Farben und die Skyline verschwindet. */}
-        <Image
-          src="/bilder/kopfbild.webp"
-          alt="Läuferin auf der Rheinuferpromenade in Düsseldorf, im Hintergrund Rheinturm und Rheinkniebrücke im Morgenlicht"
-          width={900}
-          height={502}
-          priority
-          sizes="(min-width: 1024px) 46vw, 100vw"
-          className="w-full rounded-xl object-cover shadow-karte"
-        />
       </div>
     </section>
   );
