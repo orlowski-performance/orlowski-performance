@@ -54,9 +54,9 @@ export const site = {
 /** Die vier Punkte der Vertrauensleiste unter dem Kopfbereich. */
 export const trustPoints = [
   { label: "1:1", detail: "Persönlich betreut – keine Plattform, kein Chatbot." },
-  { label: "wöchentlich", detail: "Check-in, Auswertung und Anpassung." },
+  { label: "Wöchentlich", detail: "Check-in, Auswertung und Anpassung." },
   { label: "Düsseldorf", detail: "Ansässig in Düsseldorf, betreut wird online." },
-  { label: "lizenziert", detail: "Fitnesstrainer und Ernährungsberater." },
+  { label: "Lizenziert", detail: "Fitnesstrainer und Ernährungsberater." },
 ] as const;
 
 /** Die vier Bereiche aus dem Entwurf, mit den Bildern der Präsentation. */
