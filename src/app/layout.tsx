@@ -96,11 +96,15 @@ function SiteHeader() {
             </ul>
           </details>
 
+          {/* Auf schmalen Geräten die kurze Beschriftung: Logo, Menü und der
+              volle Text passen bei 390 px nicht nebeneinander, der Knopf wurde
+              rechts abgeschnitten. */}
           <Link
             href="/bewerbung"
-            className="rounded-full bg-salbei px-5 py-2.5 text-sm font-semibold text-papier transition-colors hover:bg-ink"
+            className="whitespace-nowrap rounded-full bg-salbei px-4 py-2.5 text-sm font-semibold text-papier transition-colors hover:bg-ink sm:px-5"
           >
-            Unverbindlich bewerben
+            <span className="sm:hidden">Bewerben</span>
+            <span className="hidden sm:inline">Unverbindlich bewerben</span>
           </Link>
         </nav>
       </div>

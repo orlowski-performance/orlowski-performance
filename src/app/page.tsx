@@ -57,12 +57,17 @@ function Hero() {
         className="-z-20 object-cover object-center"
       />
 
-      {/* Der Verlauf beginnt am linken Rand deckend und läuft über die
-          Textspalte langsam auf null aus - bei 50 Prozent, also am Ende des
-          Textes, ist er zu Ende. Ab dort liegt das Bild unberührt. */}
+      {/* Der Verlauf beginnt am linken Rand deckend und läuft weich bis
+          78 Prozent aus. Er reicht damit über die Textspalte hinaus, bleibt
+          aber flach genug, dass man ihn nicht als Kante wahrnimmt: Überschrift
+          und Fließtext stehen durchgehend auf hellem Grund, während Läuferin,
+          Turm und Brücke ihre Farbe behalten.
+
+          Auf schmalen Geräten läuft er von unten nach oben, sonst liegt der
+          Text auf der Läuferin. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-papier from-0% via-papier/60 via-26% to-transparent to-50% sm:bg-gradient-to-r sm:from-papier sm:from-0% sm:via-papier/60 sm:via-28% sm:to-transparent sm:to-50%"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-papier from-0% via-papier/70 via-38% to-transparent to-74% sm:bg-gradient-to-r sm:from-papier sm:from-0% sm:via-papier/75 sm:via-40% sm:to-transparent sm:to-78%"
       />
 
       <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:py-24">

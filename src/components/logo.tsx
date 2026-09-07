@@ -41,13 +41,16 @@ export function Logo({ invertiert = false }: { invertiert?: boolean }) {
     >
       <Zeichen className="h-7 w-auto shrink-0" farbe={invertiert ? "#faf8f4" : "#57624b"} />
       <span className={`hidden h-9 w-px sm:block ${invertiert ? "bg-white/20" : "bg-line"}`} />
-      <span className="leading-tight">
+      {/* Auf schmalen Geräten nur das Zeichen: Wortmarke, Menü und Knopf
+          passen bei 390 px nicht nebeneinander. Der Name steht im aria-label,
+          für Screenreader ändert sich also nichts. */}
+      <span className="hidden leading-tight sm:block">
         <span
-          className={`block text-[0.95rem] font-semibold tracking-[0.16em] ${invertiert ? "text-papier" : "text-ink"}`}
+          className={`block whitespace-nowrap text-[0.95rem] font-semibold tracking-[0.16em] ${invertiert ? "text-papier" : "text-ink"}`}
         >
           ORLOWSKI
         </span>
-        <span className="block text-[0.58rem] tracking-[0.22em] text-leise">
+        <span className="block whitespace-nowrap text-[0.58rem] tracking-[0.22em] text-leise">
           PERFORMANCE COACHING
         </span>
       </span>
