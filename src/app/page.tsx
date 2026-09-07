@@ -57,12 +57,12 @@ function Hero() {
         className="-z-20 object-cover object-center"
       />
 
-      {/* Der Verlauf deckt nur die linke Spalte ab und ist bei 55 Prozent zu
-          Ende. Ein Verlauf über die ganze Breite nimmt dem Bild die Farbe und
-          lässt die Skyline im Dunst verschwinden. */}
+      {/* Der Verlauf beginnt am linken Rand deckend und läuft über die
+          Textspalte langsam auf null aus - bei 50 Prozent, also am Ende des
+          Textes, ist er zu Ende. Ab dort liegt das Bild unberührt. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-papier from-25% via-papier/75 via-55% to-papier/20 sm:bg-gradient-to-r sm:from-papier sm:from-22% sm:via-papier/70 sm:via-42% sm:to-transparent sm:to-56%"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-papier from-0% via-papier/60 via-26% to-transparent to-50% sm:bg-gradient-to-r sm:from-papier sm:from-0% sm:via-papier/60 sm:via-28% sm:to-transparent sm:to-50%"
       />
 
       <div className="mx-auto max-w-6xl px-6 py-16 sm:py-20 lg:py-24">
