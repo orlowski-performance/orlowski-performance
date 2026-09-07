@@ -38,14 +38,40 @@ supabase link --project-ref xfrcubunbachooolccbi
 supabase db push
 ```
 
-`public.leads` nimmt die Kontaktanfragen auf. Row Level Security ist aktiv:
-Einfügen darf der anonyme Client, Lesen nur angemeldete Nutzer.
+`public.leads` nimmt die Kontaktanfragen auf, `public.profiles` hält je Konto
+eine Rolle (`staff` oder `client`). Row Level Security ist aktiv: Einfügen darf
+der anonyme Client, Lesen nur Konten mit der Rolle `staff`. Ein Trigger legt zu
+jedem neuen Konto automatisch ein Profil an.
+
+Zugänge werden in der Supabase-Oberfläche vergeben – es gibt bewusst keine
+öffentliche Registrierung. Die Rolle `staff` wird danach von Hand gesetzt:
+
+```sql
+update public.profiles set role = 'staff' where id = '<user-uuid>';
+```
 
 ## Deployment
 
 Jeder Push auf `main` deployt nach Produktion, jeder Branch bekommt eine
 Preview-URL. In den Vercel-Projekteinstellungen müssen dieselben Variablen
 gesetzt sein wie in `.env.example` – für Preview und Production getrennt.
+
+## Seitenplan
+
+Aus der Analyse: aus einer Seite werden sieben. Alle Unterseiten liegen in
+`src/app/[slug]/page.tsx` und werden aus `servicePages` in `src/lib/site.ts`
+erzeugt – Adresse, Titel und Zielbegriff stehen dort, der Text fehlt noch.
+
+| Adresse | Zielbegriff |
+| ------- | ----------- |
+| `/` | online coaching düsseldorf |
+| `/personal-training-duesseldorf` | personal trainer düsseldorf |
+| `/ernaehrungsberatung-duesseldorf` | ernährungsberatung düsseldorf |
+| `/coaching-fuer-frauen` | personal trainer für frauen düsseldorf |
+| `/coaching-fuer-berufstaetige` | online coaching für berufstätige |
+| `/abnehmen-duesseldorf` | abnehmen düsseldorf |
+| `/preise` | personal trainer düsseldorf preise |
+| `/ergebnisse` | – |
 
 ## Offene Punkte vor dem Livegang
 
@@ -55,5 +81,8 @@ gesetzt sein wie in `.env.example` – für Preview und Production getrennt.
 - [ ] Datenschutzerklärung anwaltlich prüfen lassen
 - [ ] Porträt und Bildmaterial in Web-Formaten bereitstellen (kein HEIC)
 - [ ] Benachrichtigung bei neuer Anfrage einrichten (E-Mail oder Supabase-Trigger)
+- [ ] Texte der sieben Unterseiten schreiben
+- [ ] Favicon in 16, 32, 180 und 512 px sowie Teilen-Bild 1200 × 630 px
+- [ ] Logo-Richtung wählen und als SVG nachzeichnen lassen
 - [ ] Domain `orlowski-performance.com` auf Vercel zeigen lassen
 - [ ] `NEXT_PUBLIC_SITE_URL` auf die echte Domain umstellen

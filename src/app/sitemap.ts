@@ -1,10 +1,18 @@
 import type { MetadataRoute } from "next";
-import { site } from "@/lib/site";
+import { site, servicePages } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  return ["", "/kontakt", "/impressum", "/datenschutz"].map((path) => ({
+  const paths = [
+    "",
+    "/kontakt",
+    ...servicePages.map((p) => `/${p.slug}`),
+    "/impressum",
+    "/datenschutz",
+  ];
+  return paths.map((path) => ({
     url: `${site.url}${path}`,
     lastModified: now,
+    priority: path === "" ? 1 : 0.7,
   }));
 }
