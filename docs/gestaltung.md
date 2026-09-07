@@ -73,8 +73,14 @@ als solche zu behandeln:
 | Datei | Herkunft | Status |
 | --- | --- | --- |
 | `kopfbild.webp` | Gemini, 2026-09-07, nach diesen Vorgaben erzeugt | Kopfbereich |
-| `kopfbild-alternative.webp` | dieselbe Sitzung, Läuferin weiter links | Alternative |
-| `kopfbild-ohne-person.webp` | dieselbe Sitzung, ohne Personen | Alternative |
+| `kopfbild-alternative.webp` | dieselbe Sitzung, Baumreihe stärker, Läuferin weiter links | Alternative |
+
+Hinweis aus der Entstehung: Bei der Anweisung „linke Hälfte frei, Turm im
+rechten Drittel" liefert das Modell zwei getrennte Bilder mit einer Naht in der
+Mitte. Auch ein zweiter Versuch trennte die Bildhälften noch sichtbar in Tonwert
+und Struktur. Die Anweisung muss ausdrücklich verlangen, dass die Szene
+**durchgehend** ist – gleiche Perspektive, gleiches Licht, gleiche Textur von
+Kante zu Kante – und Diptychon, Collage und Naht einzeln ausschließen.
 | `training/ernaehrung/betreuung/alltag.webp` | aus der Präsentation | Vorlage fürs Shooting |
 | `portraet-platzhalter.webp` | aus der Präsentation | **zeigt nicht Sebastian Orlowski** |
 
