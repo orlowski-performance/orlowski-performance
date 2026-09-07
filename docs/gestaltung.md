@@ -54,10 +54,20 @@ Anordnung nach **Richtung A** (Zeichen und Wortmarke nebeneinander, getrennt
 durch eine senkrechte Linie), Zeichen nach **Richtung B** (SO-Monogramm ohne
 Ring, S und O in einer durchgehenden Bewegung).
 
-Das Zeichen liegt nirgends als Vektor vor – weder in der Präsentation noch im
-Artefakt, dort sind alle Bilder Rastergrafiken. `src/components/logo.tsx`
-enthält eine **Nachzeichnung, keine Reinzeichnung**. Vor Druck und Briefbogen
-gehört ein Grafiker darüber; das steht als Punkt 8 im Fahrplan der Analyse.
+Vorlage ist `orlowski_logo.webp` (700 × 700 px, OneDrive-Wurzelverzeichnis).
+Ein Vektor existiert nicht – weder in der Präsentation noch im Artefakt, dort
+sind alle Bilder Rastergrafiken.
+
+Der Pfad in `src/components/logo.tsx` ist die **tatsächliche Kontur der
+Vorlage**, automatisch nachgefahren: Marching Squares auf der vierfach
+abgetasteten Schwellenmaske, danach Douglas-Peucker mit 1,4 px Toleranz und
+weiche Ecken über quadratische Béziers. Zwei Ringe, 198 und 51 Stützpunkte,
+rund 6 KB. Also keine freie Nachzeichnung mehr.
+
+Was bleibt: Eine nachgefahrene Kontur hat mehr Stützpunkte als eine gezeichnete
+und ist in den Rundungen nicht perfekt gleichmäßig. Für Web und Favicon reicht
+das; vor Druck und Briefbogen gehört ein Grafiker darüber. Das steht als
+Punkt 8 im Fahrplan der Analyse.
 
 Nötige Favicon-Größen laut Analyse: 16, 32, 180 und 512 px.
 

@@ -94,10 +94,10 @@ Sie wird über `next/font/google` zur Bauzeit geholt und neben die Seite gelegt 
 zur Laufzeit geht keine Anfrage an Google, und der Text springt nicht nach.
 
 Das Logo: Anordnung nach Richtung A, Zeichen nach Richtung B – so entschieden.
-Es liegt **nirgends als Vektor** vor, auch im Artefakt sind alle Bilder Raster.
-`src/components/logo.tsx` und `public/logo.svg` enthalten eine Nachzeichnung,
-keine Reinzeichnung. Für Druck und Briefbogen gehört ein Grafiker darüber;
-das steht als Punkt 8 im Fahrplan der Analyse.
+Der Pfad in `src/components/logo.tsx` und `public/logo.svg` ist die Kontur der
+Vorlage `orlowski_logo.webp`, automatisch nachgefahren. Nicht von Hand
+nachgezeichnet – das war ein früherer, verworfener Versuch. Für Druck und
+Briefbogen gehört trotzdem ein Grafiker darüber.
 
 Die Bilder in `public/bilder/` stammen aus der Präsentation und sind
 KI-erzeugte Vorlagen für ein Fotoshooting (Art. 50 EU-KI-VO). Das Porträt zeigt
