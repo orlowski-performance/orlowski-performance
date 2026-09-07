@@ -41,37 +41,17 @@ export default function HomePage() {
 
 function Hero() {
   return (
-    <section className="relative isolate overflow-hidden border-b border-line">
-      {/* Kopfbild: Rheinturm im Morgenlicht. Die Ortsangabe ist damit erledigt,
-          bevor der erste Satz gelesen ist - so steht es in der Analyse. */}
-      <Image
-        src="/bilder/kopfbild.webp"
-        alt=""
-        aria-hidden="true"
-        fill
-        priority
-        sizes="100vw"
-        className="-z-20 object-cover object-right"
-      />
-
-      {/* Verlauf: links deckend, damit die Überschrift auf ruhiger Fläche steht,
-          nach rechts durchsichtig, damit die Skyline sichtbar bleibt. Auf
-          schmalen Geräten von unten nach oben statt von links. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-t from-papier via-papier/85 to-papier/30 sm:bg-gradient-to-r sm:from-papier sm:via-papier/90 sm:to-transparent"
-      />
-
-      <div className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
-        <div className="max-w-xl">
+    <section className="border-b border-line">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 sm:py-24 lg:grid-cols-[1fr_0.95fr]">
+        <div>
           <p className="augenbraue">
             Personal Training &amp; Ernährung · {site.city}
           </p>
-          <h1 className="mt-4 text-4xl leading-[1.15] sm:text-5xl">
+          <h1 className="mt-4 max-w-[13ch] text-[2.4rem] sm:text-[2.9rem] lg:text-[3.1rem]">
             Persönliches 1:1-Coaching aus Düsseldorf – für Menschen, deren Woche
             schon voll ist.
           </h1>
-          <p className="mt-6 text-lg text-muted">
+          <p className="mt-6 max-w-lg text-lg text-muted">
             Training, Ernährung und Routinen, die sich deinem Alltag anpassen
             statt umgekehrt. Online betreut, mit wöchentlichen Check-ins und
             meiner persönlichen Telefonnummer.
@@ -85,6 +65,20 @@ function Hero() {
             aktuell {site.versprechen.freiePlaetze} freie Plätze
           </p>
         </div>
+
+        {/* Kopfbild: Rheinturm im Morgenlicht. Damit ist die Ortsangabe
+            erledigt, bevor der erste Satz gelesen ist - so steht es in der
+            Analyse. Eigene Fläche statt Hintergrund: über einem Verlauf
+            verliert das Bild seine Farben und die Skyline verschwindet. */}
+        <Image
+          src="/bilder/kopfbild.webp"
+          alt="Läuferin auf der Rheinuferpromenade in Düsseldorf, im Hintergrund Rheinturm und Rheinkniebrücke im Morgenlicht"
+          width={900}
+          height={502}
+          priority
+          sizes="(min-width: 1024px) 46vw, 100vw"
+          className="w-full rounded-xl object-cover shadow-karte"
+        />
       </div>
     </section>
   );

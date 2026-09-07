@@ -81,12 +81,19 @@ verbindlichen Werte.
 | Sanft | `#F1EEE7` |
 | Linie | `#E4E0D6` |
 | Ink | `#1E1E1C` |
-| Überschriften | `Georgia, "Iowan Old Style", "Times New Roman", serif` |
+| Überschriften | **Fraunces** 600, Ausweich: `Georgia, "Iowan Old Style", serif` |
 | Fließtext | System-Sans |
 
-Die Serifenschrift trägt die redaktionelle Haltung und ist keine Zierde. Es
-wird bewusst keine Schriftdatei geladen – die Vorgängerseite scheiterte an
-35 MB Ladegewicht.
+Die Anzeigeschrift steht in der Artefakt-Fassung der Präsentation
+(`claude.ai/code/artifact/76f5027e-4222-...`) als eingebettete woff2: **Fraunces**.
+Sie wird über `next/font/google` zur Bauzeit geholt und neben die Seite gelegt –
+zur Laufzeit geht keine Anfrage an Google, und der Text springt nicht nach.
+
+Das Logo: Anordnung nach Richtung A, Zeichen nach Richtung B – so entschieden.
+Es liegt **nirgends als Vektor** vor, auch im Artefakt sind alle Bilder Raster.
+`src/components/logo.tsx` und `public/logo.svg` enthalten eine Nachzeichnung,
+keine Reinzeichnung. Für Druck und Briefbogen gehört ein Grafiker darüber;
+das steht als Punkt 8 im Fahrplan der Analyse.
 
 Die Bilder in `public/bilder/` stammen aus der Präsentation und sind
 KI-erzeugte Vorlagen für ein Fotoshooting (Art. 50 EU-KI-VO). Das Porträt zeigt

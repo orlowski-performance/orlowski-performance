@@ -1,9 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Fraunces } from "next/font/google";
 import { site, servicePages } from "@/lib/site";
 import { JsonLd, localBusinessJsonLd } from "@/lib/seo";
 import { Logo } from "@/components/logo";
 import "./globals.css";
+
+/**
+ * Anzeigeschrift der Vorlage. next/font lädt sie zur Bauzeit herunter und legt
+ * sie neben die Seite - zur Laufzeit geht keine Anfrage an Google, und es gibt
+ * kein Nachspringen des Textes.
+ */
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["600"],
+  display: "swap",
+  variable: "--font-display",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -27,7 +40,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de">
+    <html lang="de" className={fraunces.variable}>
       <body className="flex min-h-screen flex-col">
         <a
           href="#inhalt"
